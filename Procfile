@@ -1,1 +1,1 @@
-web: uvicorn main:app --host 0.0.0.0 --port $PORT
+web: gunicorn --bind :$PORT --workers 4 --threads 10 --timeout 0 main:app
