@@ -6,3 +6,4 @@ PyPDF2
 chardet
 uvicorn
 gunicorn
+dotenv
