@@ -7,3 +7,4 @@ chardet
 uvicorn
 gunicorn
 python-dotenv
+python-multipart
