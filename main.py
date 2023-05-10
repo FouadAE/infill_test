@@ -13,6 +13,14 @@ app = FastAPI(
     version="0.0.1",
 )
 
+# Api root or home endpoint
+@app.get('/')
+@app.get('/home')
+def read_home():
+    """
+     Home endpoint which can be used to test the availability of the application.
+     """
+    return {'message': 'System is healthy'}
 
 @app.get("/ping")
 def pong():
