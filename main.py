@@ -48,7 +48,7 @@ async def query(query: str = Form(...), teamid: str = Form(...)):
 
 
 @app.post("/mapping")
-async def mapping1(rawtext:str=Form(...), firebase_schema: str = Form(...)):
+async def mapping(rawtext:str=Form(...), firebase_schema: str = Form(...)):
     return map_csv_to_firebase(rawtext, firebase_schema)
 
 @app.post("/properties")
