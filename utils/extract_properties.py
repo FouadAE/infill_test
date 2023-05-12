@@ -27,7 +27,7 @@ def extract_properties(text):
     # Get the properties from the response
     properties = response.choices[0].message.content
     # Parse the response and return the mapping
-    output_data["properties"] = json.loads(properties)
+    output_data = json.loads(properties)
 
     return output_data
 
