@@ -37,7 +37,7 @@ def qa_function(query,teamid):
     # set your query
     query = query
     # search for similar documents
-    docs = docsearch.similarity_search(query, include_metadata=True)
+    docs = docsearch.similarity_search(query)
 
     # run your chain
     result =chain.run(input_documents=docs, question=query)
