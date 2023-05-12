@@ -3,6 +3,7 @@ from utils.save_to_pinecone import save_to_pinecone
 from utils.to_rawtext import convert_to_rawtext
 from utils.qa_function import qa_function
 from utils.mapping_firebase import map_csv_to_firebase
+from utils.extract_properties import extract_properties
 import os
 
 
@@ -15,7 +16,6 @@ app = FastAPI(
 
 # Api root or home endpoint
 @app.get('/')
-@app.get('/home')
 def read_home():
     """
      Home endpoint which can be used to test the availability of the application.
@@ -51,3 +51,7 @@ async def create_upload_file(file: UploadFile = File(...)):
 @app.post("/mapping")
 async def mapping1(rawtext:str=Form(...), firebase_schema: str = Form(...)):
     return map_csv_to_firebase(rawtext, firebase_schema)
+
+@app.post("/properties")
+async def properties(text:str=Form(...)):
+    return extract_properties(text)
