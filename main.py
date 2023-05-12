@@ -27,6 +27,15 @@ def pong():
     return {"ping": "pong!"}
 
 
+@app.post("/convert")
+async def to_raw_text(file: UploadFile = File(...)):
+    extension = os.path.splitext(file.filename)[1]
+    if (extension == '.csv'):
+        file_contents = await file.read()
+    elif (extension == '.pdf'):
+        file_contents = file.file
+    return convert_to_rawtext(extension, file_contents)
+
 @app.post("/save")
 async def save(rawtext: str = Form(...), teamid: str = Form(...)):
 
@@ -36,16 +45,6 @@ async def save(rawtext: str = Form(...), teamid: str = Form(...)):
 @app.post('/query')
 async def query(query: str = Form(...), teamid: str = Form(...)):
     return qa_function(query, teamid)
-
-
-@app.post("/convert")
-async def create_upload_file(file: UploadFile = File(...)):
-    extension = os.path.splitext(file.filename)[1]
-    if (extension == '.csv'):
-        file_contents = await file.read()
-    elif (extension == '.pdf'):
-        file_contents = file.file
-    return convert_to_rawtext(extension, file_contents)
 
 
 @app.post("/mapping")
