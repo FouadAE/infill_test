@@ -43,7 +43,7 @@ async def save(rawtext: str = Form(...), teamid: str = Form(...)):
 
 
 @app.post('/query')
-async def query(query: str = Form(...), teamid: str = Form(...)):
+async def query(query: str = Form(...), teamid: str = Form(None)):
     return qa_function(query, teamid)
 
 
