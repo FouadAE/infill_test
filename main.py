@@ -37,7 +37,7 @@ async def to_raw_text(file: UploadFile = File(...)):
     return convert_to_rawtext(extension, file_contents)
 
 @app.post("/save")
-async def save(rawtext: str = Form(...), teamid: str = Form(...)):
+async def save(rawtext: str = Form(...), teamid: str = Form(None)):
 
     return save_to_pinecone(rawtext, teamid)
 

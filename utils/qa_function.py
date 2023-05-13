@@ -28,8 +28,7 @@ def qa_function(query,teamid):
      environment=PINECONE_API_ENV  
     )
     index_name = "pinecone-test"
-
-    docsearch = Pinecone.from_texts("", embeddings, index_name=index_name,namespace=teamid)
+    
     # load your chain
     llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
     chain = load_qa_chain(llm, chain_type="stuff")
@@ -37,7 +36,16 @@ def qa_function(query,teamid):
     # set your query
     query = query
     # search for similar documents
-    docs = docsearch.similarity_search(query)
+    if teamid==None:
+      teamid=""
+      docsearch0 = Pinecone.from_texts("", embeddings, index_name=index_name,namespace="")
+      docs = docsearch0.similarity_search(query)
+
+    else:
+       docsearch = Pinecone.from_texts("", embeddings, index_name=index_name,namespace=teamid)
+       docsearch1 = Pinecone.from_texts("", embeddings, index_name=index_name,namespace="")
+       docs = docsearch.similarity_search(query)
+       docs+=docsearch1.similarity_search(query)
 
     # run your chain
     result =chain.run(input_documents=docs, question=query)
@@ -46,3 +54,5 @@ def qa_function(query,teamid):
     print(end - start)
     return result
    
+# res = qa_function("What is the name of the company located in morroco?", "test")
+# print(res)
