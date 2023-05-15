@@ -3,7 +3,6 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 import pinecone 
 from langchain.llms import OpenAI
 from langchain.chains.question_answering import load_qa_chain
-import time
 import os
 from dotenv import load_dotenv
 
@@ -18,7 +17,7 @@ PINECONE_API_ENV = os.environ['PINECONE_API_ENV']
 
 
 def qa_function(query,teamid):
-    start = time.time()
+    
     # initialize embeddings
     embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 
@@ -50,9 +49,6 @@ def qa_function(query,teamid):
     # run your chain
     result =chain.run(input_documents=docs, question=query)
     
-    end = time.time()
-    print(end - start)
+    
     return result
    
-# res = qa_function("What is the name of the company located in morroco?", "test")
-# print(res)
