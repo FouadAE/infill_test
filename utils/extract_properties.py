@@ -24,7 +24,7 @@ def extract_properties(text):
              str(text) + "'. Please respond with a JSON-formatted string with the following format: " + json.dumps(output_data)
              },
         ],
-        temperature=0.9,
+        temperature=0.2,
     )
     response = response.choices[0].message.content
 
