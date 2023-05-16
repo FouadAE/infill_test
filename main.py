@@ -58,4 +58,4 @@ async def mapping(rawtext:str=Form(...), firebase_schema: str = Form(...)):
 @app.post("/properties")
 async def properties(text:str=Form(...)):
     result = q.enqueue(extract_properties, 'http://heroku.com')
-    return result
+    return True
