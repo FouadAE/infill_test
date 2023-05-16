@@ -30,17 +30,17 @@ def extract_properties(text):
         ],
     )
     response = response.choices[0].message.content
-    #end time
-    end_time = time.time()
-    #print time
-    print("Time taken to extract properties: " + str(end_time - start_time))
-    try:
-        # Attempt to load the response as JSON
-        output_data = json.loads(response)
-    except json.JSONDecodeError:
-        # If the response isn't valid JSON, return a default value or handle the error
-        print("Invalid JSON received:", response)
-        return None
+    # #end time
+    # end_time = time.time()
+    # #print time
+    # print("Time taken to extract properties: " + str(end_time - start_time))
+    # try:
+    #     # Attempt to load the response as JSON
+    #     output_data = json.loads(response)
+    # except json.JSONDecodeError:
+    #     # If the response isn't valid JSON, return a default value or handle the error
+    #     print("Invalid JSON received:", response)
+    #     return None
 
-    print(response)
-    return output_data
+    # print(response)
+    return response
