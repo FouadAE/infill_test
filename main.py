@@ -6,15 +6,15 @@ from utils.mapping_firebase import map_csv_to_firebase
 from utils.extract_properties import extract_properties
 import os
 from rq import Queue
-from worker import redis_conn
+from worker import conn
 
+q = Queue(connection=conn)
 
 app = FastAPI(
     title="FastAPI",
     description="",
     version="0.0.1",
 )
-q = Queue(connection=redis_conn)
 
 # Api root or home endpoint
 @app.get('/')
@@ -53,11 +53,9 @@ async def query(query: str = Form(...), teamid: str = Form(None)):
 async def mapping(rawtext:str=Form(...), firebase_schema: str = Form(...)):
     return map_csv_to_firebase(rawtext, firebase_schema)
 
-def process_task(text):
-    extracted_properties = extract_properties(text)
-    return extracted_properties
+
 
 @app.post("/properties")
 async def properties(text:str=Form(...)):
-    job = q.enqueue(process_task, text)
-    return {'job_id': job.id}
+    result = q.enqueue(extract_properties, 'http://heroku.com')
+    return result
