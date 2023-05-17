@@ -5,10 +5,7 @@ from utils.qa_function import qa_function
 from utils.mapping_firebase import map_csv_to_firebase
 from utils.extract_properties import extract_properties
 import os
-from rq import Queue
-from worker import conn
 
-q = Queue(connection=conn)
 
 app = FastAPI(
     title="FastAPI",
@@ -57,5 +54,4 @@ async def mapping(rawtext:str=Form(...), firebase_schema: str = Form(...)):
 
 @app.post("/properties")
 async def properties(text:str=Form(...)):
-    result = q.enqueue(extract_properties, 'http://heroku.com')
-    return True
+    return extract_properties(text)
